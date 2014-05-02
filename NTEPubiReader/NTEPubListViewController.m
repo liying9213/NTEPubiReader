@@ -7,7 +7,8 @@
 //
 
 #import "NTEPubListViewController.h"
-
+#import "NTEPubDefine.h"
+#import "NTEPubViewController.h"
 @interface NTEPubListViewController ()
 
 @end
@@ -26,7 +27,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [self ResetNav];
+    [self ResetView];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -34,6 +37,37 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+-(void)ResetNav
+{
+    NSString *headImgStr;
+    if (iOS7)
+    {
+        headImgStr= @"bg_header_content_2.png";
+    }
+    else
+        headImgStr=@"bg_header_content_1.png";
+    UIImage * headImg = [UIImage imageNamed:headImgStr];
+    [[self.navigationController navigationBar] setBackgroundImage:headImg forBarMetrics:UIBarMetricsDefault];
+}
+
+-(void)ResetView
+{
+    self.view.backgroundColor=[UIColor whiteColor];
+    
+    UIButton *button=[UIButton buttonWithType:UIButtonTypeCustom];
+    button.backgroundColor=[UIColor lightGrayColor];
+    button.frame=CGRectMake(120, 150, 50, 30);
+    [button addTarget:self action:@selector(readBook) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button];
+}
+
+-(void)readBook
+{
+    NTEPubViewController *viewController=[[NTEPubViewController alloc] init];
+    [self.navigationController pushViewController:viewController animated:YES];
+}
+
 
 /*
 #pragma mark - Navigation

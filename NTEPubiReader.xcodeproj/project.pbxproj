@@ -14,6 +14,10 @@
 		1449B0A11913A81200131ADB /* NTChapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1449B0A01913A81200131ADB /* NTChapter.m */; };
 		1449B0A41913AA5B00131ADB /* NTEPubSearchViewcontroller.m in Sources */ = {isa = PBXBuildFile; fileRef = 1449B0A31913AA5B00131ADB /* NTEPubSearchViewcontroller.m */; };
 		1449B0A71913AAB600131ADB /* NTEPubChapterListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1449B0A61913AAB600131ADB /* NTEPubChapterListView.m */; };
+		1449B0AC1913AD7F00131ADB /* bg_header_content_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 1449B0A81913AD7F00131ADB /* bg_header_content_1.png */; };
+		1449B0AD1913AD7F00131ADB /* bg_header_content_1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1449B0A91913AD7F00131ADB /* bg_header_content_1@2x.png */; };
+		1449B0AE1913AD7F00131ADB /* bg_header_content_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1449B0AA1913AD7F00131ADB /* bg_header_content_2.png */; };
+		1449B0AF1913AD7F00131ADB /* bg_header_content_2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1449B0AB1913AD7F00131ADB /* bg_header_content_2@2x.png */; };
 		145428F61913A4C000082BB9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 145428F51913A4C000082BB9 /* Foundation.framework */; };
 		145428F81913A4C000082BB9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 145428F71913A4C000082BB9 /* CoreGraphics.framework */; };
 		145428FA1913A4C000082BB9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 145428F91913A4C000082BB9 /* UIKit.framework */; };
@@ -73,6 +77,11 @@
 		1449B0A31913AA5B00131ADB /* NTEPubSearchViewcontroller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTEPubSearchViewcontroller.m; sourceTree = "<group>"; };
 		1449B0A51913AAB600131ADB /* NTEPubChapterListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTEPubChapterListView.h; sourceTree = "<group>"; };
 		1449B0A61913AAB600131ADB /* NTEPubChapterListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTEPubChapterListView.m; sourceTree = "<group>"; };
+		1449B0A81913AD7F00131ADB /* bg_header_content_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_header_content_1.png; sourceTree = "<group>"; };
+		1449B0A91913AD7F00131ADB /* bg_header_content_1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_header_content_1@2x.png"; sourceTree = "<group>"; };
+		1449B0AA1913AD7F00131ADB /* bg_header_content_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg_header_content_2.png; sourceTree = "<group>"; };
+		1449B0AB1913AD7F00131ADB /* bg_header_content_2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_header_content_2@2x.png"; sourceTree = "<group>"; };
+		1449B0B21913ADFD00131ADB /* NTEPubDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTEPubDefine.h; sourceTree = "<group>"; };
 		145428F21913A4C000082BB9 /* NTEPubiReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NTEPubiReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		145428F51913A4C000082BB9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		145428F71913A4C000082BB9 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -158,6 +167,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1449B0B01913AD8B00131ADB /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				1449B0B11913ADAD00131ADB /* image */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		1449B0B11913ADAD00131ADB /* image */ = {
+			isa = PBXGroup;
+			children = (
+				1449B0A81913AD7F00131ADB /* bg_header_content_1.png */,
+				1449B0A91913AD7F00131ADB /* bg_header_content_1@2x.png */,
+				1449B0AA1913AD7F00131ADB /* bg_header_content_2.png */,
+				1449B0AB1913AD7F00131ADB /* bg_header_content_2@2x.png */,
+			);
+			name = image;
+			sourceTree = "<group>";
+		};
 		145428E91913A4C000082BB9 = {
 			isa = PBXGroup;
 			children = (
@@ -193,6 +221,7 @@
 		145428FB1913A4C000082BB9 /* NTEPubiReader */ = {
 			isa = PBXGroup;
 			children = (
+				1449B0B01913AD8B00131ADB /* Resources */,
 				145429241913A51900082BB9 /* TouchXML */,
 				145429421913A51900082BB9 /* ZipArchive */,
 				145429041913A4C000082BB9 /* AppDelegate.h */,
@@ -211,6 +240,7 @@
 				1449B0A01913A81200131ADB /* NTChapter.m */,
 				145429071913A4C000082BB9 /* Images.xcassets */,
 				145428FC1913A4C000082BB9 /* Supporting Files */,
+				1449B0B21913ADFD00131ADB /* NTEPubDefine.h */,
 			);
 			path = NTEPubiReader;
 			sourceTree = "<group>";
@@ -397,7 +427,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1449B0AE1913AD7F00131ADB /* bg_header_content_2.png in Resources */,
+				1449B0AD1913AD7F00131ADB /* bg_header_content_1@2x.png in Resources */,
 				145429001913A4C000082BB9 /* InfoPlist.strings in Resources */,
+				1449B0AC1913AD7F00131ADB /* bg_header_content_1.png in Resources */,
+				1449B0AF1913AD7F00131ADB /* bg_header_content_2@2x.png in Resources */,
 				1454295E1913A51900082BB9 /* ChangeLogUnzip in Resources */,
 				145429081913A4C000082BB9 /* Images.xcassets in Resources */,
 			);

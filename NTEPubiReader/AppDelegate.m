@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-
+#import "NTEPubListViewController.h"
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -16,6 +16,10 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    NTEPubListViewController *viewController=[[NTEPubListViewController alloc] init];
+    UINavigationController *navController=[[UINavigationController alloc] initWithRootViewController:viewController];
+    self.window.rootViewController=navController;
     return YES;
 }
 
