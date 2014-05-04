@@ -51,6 +51,12 @@
 		145429631913A51900082BB9 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 1454294D1913A51900082BB9 /* zip.c */; };
 		145429641913A51900082BB9 /* ZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 145429501913A51900082BB9 /* ZipArchive.m */; };
 		145429661913A52B00082BB9 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 145429651913A52B00082BB9 /* libz.dylib */; };
+		1471EE771914930B00C155FE /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 1471EE761914930B00C155FE /* NSString+HTML.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		1471EE7A1914934800C155FE /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 1471EE791914934800C155FE /* GTMNSString+HTML.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		1471EE7D1914952000C155FE /* 呼吸机临床应用快速解读.epub in Resources */ = {isa = PBXBuildFile; fileRef = 1471EE7C1914952000C155FE /* 呼吸机临床应用快速解读.epub */; };
+		1471EE861914BA3800C155FE /* SearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 1471EE851914BA3800C155FE /* SearchResult.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		1471EE881914E16300C155FE /* 机械制造基础.epub in Resources */ = {isa = PBXBuildFile; fileRef = 1471EE871914E16300C155FE /* 机械制造基础.epub */; };
+		14C3F5E31916186500303ED9 /* NTWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C3F5E21916186500303ED9 /* NTWebViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -139,6 +145,17 @@
 		1454294F1913A51900082BB9 /* ZipArchive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZipArchive.h; sourceTree = "<group>"; };
 		145429501913A51900082BB9 /* ZipArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZipArchive.m; sourceTree = "<group>"; };
 		145429651913A52B00082BB9 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		1471EE751914930B00C155FE /* NSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HTML.h"; sourceTree = "<group>"; };
+		1471EE761914930B00C155FE /* NSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HTML.m"; sourceTree = "<group>"; };
+		1471EE781914934800C155FE /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
+		1471EE791914934800C155FE /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMNSString+HTML.m"; sourceTree = "<group>"; };
+		1471EE7B191493C000C155FE /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
+		1471EE7C1914952000C155FE /* 呼吸机临床应用快速解读.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "呼吸机临床应用快速解读.epub"; sourceTree = "<group>"; };
+		1471EE841914BA3800C155FE /* SearchResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResult.h; sourceTree = "<group>"; };
+		1471EE851914BA3800C155FE /* SearchResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResult.m; sourceTree = "<group>"; };
+		1471EE871914E16300C155FE /* 机械制造基础.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "机械制造基础.epub"; sourceTree = "<group>"; };
+		14C3F5E11916186500303ED9 /* NTWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTWebViewController.h; sourceTree = "<group>"; };
+		14C3F5E21916186500303ED9 /* NTWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTWebViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +187,8 @@
 		1449B0B01913AD8B00131ADB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1471EE871914E16300C155FE /* 机械制造基础.epub */,
+				1471EE7C1914952000C155FE /* 呼吸机临床应用快速解读.epub */,
 				1449B0B11913ADAD00131ADB /* image */,
 			);
 			name = Resources;
@@ -230,6 +249,8 @@
 				1449B0971913A7A300131ADB /* NTEPubListViewController.m */,
 				1449B0991913A7D800131ADB /* NTEPubViewController.h */,
 				1449B09A1913A7D800131ADB /* NTEPubViewController.m */,
+				14C3F5E11916186500303ED9 /* NTWebViewController.h */,
+				14C3F5E21916186500303ED9 /* NTWebViewController.m */,
 				1449B0A21913AA5B00131ADB /* NTEPubSearchViewcontroller.h */,
 				1449B0A31913AA5B00131ADB /* NTEPubSearchViewcontroller.m */,
 				1449B0A51913AAB600131ADB /* NTEPubChapterListView.h */,
@@ -238,6 +259,13 @@
 				1449B09D1913A80000131ADB /* NTEPub.m */,
 				1449B09F1913A81200131ADB /* NTChapter.h */,
 				1449B0A01913A81200131ADB /* NTChapter.m */,
+				1471EE841914BA3800C155FE /* SearchResult.h */,
+				1471EE851914BA3800C155FE /* SearchResult.m */,
+				1471EE7B191493C000C155FE /* GTMDefines.h */,
+				1471EE751914930B00C155FE /* NSString+HTML.h */,
+				1471EE761914930B00C155FE /* NSString+HTML.m */,
+				1471EE781914934800C155FE /* GTMNSString+HTML.h */,
+				1471EE791914934800C155FE /* GTMNSString+HTML.m */,
 				145429071913A4C000082BB9 /* Images.xcassets */,
 				145428FC1913A4C000082BB9 /* Supporting Files */,
 				1449B0B21913ADFD00131ADB /* NTEPubDefine.h */,
@@ -428,7 +456,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				1449B0AE1913AD7F00131ADB /* bg_header_content_2.png in Resources */,
+				1471EE881914E16300C155FE /* 机械制造基础.epub in Resources */,
 				1449B0AD1913AD7F00131ADB /* bg_header_content_1@2x.png in Resources */,
+				1471EE7D1914952000C155FE /* 呼吸机临床应用快速解读.epub in Resources */,
 				145429001913A4C000082BB9 /* InfoPlist.strings in Resources */,
 				1449B0AC1913AD7F00131ADB /* bg_header_content_1.png in Resources */,
 				1449B0AF1913AD7F00131ADB /* bg_header_content_2@2x.png in Resources */,
@@ -452,6 +482,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1471EE861914BA3800C155FE /* SearchResult.m in Sources */,
 				1454295B1913A51900082BB9 /* CXMLNode_PrivateExtensions.m in Sources */,
 				145429601913A51900082BB9 /* Makefile in Sources */,
 				145429611913A51900082BB9 /* mztools.c in Sources */,
@@ -462,7 +493,9 @@
 				145429511913A51900082BB9 /* CXMLDocument_CreationExtensions.m in Sources */,
 				145429551913A51900082BB9 /* CXMLDocument_PrivateExtensions.m in Sources */,
 				1449B0981913A7A300131ADB /* NTEPubListViewController.m in Sources */,
+				1471EE771914930B00C155FE /* NSString+HTML.m in Sources */,
 				1449B09E1913A80000131ADB /* NTEPub.m in Sources */,
+				14C3F5E31916186500303ED9 /* NTWebViewController.m in Sources */,
 				145429521913A51900082BB9 /* CXMLNode_CreationExtensions.m in Sources */,
 				1454295C1913A51900082BB9 /* CXMLNode_XPathExtensions.m in Sources */,
 				145429641913A51900082BB9 /* ZipArchive.m in Sources */,
@@ -472,6 +505,7 @@
 				145429621913A51900082BB9 /* unzip.c in Sources */,
 				145429631913A51900082BB9 /* zip.c in Sources */,
 				1454295F1913A51900082BB9 /* ioapi.c in Sources */,
+				1471EE7A1914934800C155FE /* GTMNSString+HTML.m in Sources */,
 				1449B0A71913AAB600131ADB /* NTEPubChapterListView.m in Sources */,
 				145429581913A51900082BB9 /* CXMLElement_ElementTreeExtensions.m in Sources */,
 				145429591913A51900082BB9 /* CXMLNamespaceNode.m in Sources */,

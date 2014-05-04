@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>5AD8FF5D-FC0A-4A1C-9335-670D5FA01471</string>
+	<key>IDESourceControlProjectName</key>
+	<string>NTEPubiReader</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>814F9A0E-A934-4984-BBE7-A493A77DD21A</key>
+		<string>https://github.com/liying9213/NTEPubiReader.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>NTEPubiReader.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>814F9A0E-A934-4984-BBE7-A493A77DD21A</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/liying9213/NTEPubiReader.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>814F9A0E-A934-4984-BBE7-A493A77DD21A</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>814F9A0E-A934-4984-BBE7-A493A77DD21A</string>
+			<key>IDESourceControlWCCName</key>
+			<string>NTEPubiReader</string>
+		</dict>
+	</array>
+</dict>
+</plist>
