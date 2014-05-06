@@ -57,7 +57,7 @@
     _EpubWebView.scrollView.delegate = self;
     _EpubWebView.scrollView.pagingEnabled = YES;
     _EpubWebView.backgroundColor = [UIColor clearColor];
-    _EpubWebView.scrollView.scrollEnabled=NO;
+//    _EpubWebView.scrollView.scrollEnabled=NO;
     _EpubWebView.scrollView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_EpubWebView];
     [self  loadSpine:_currentSpineIndex atPageIndex:_currentPageInSpineIndex];
@@ -87,7 +87,8 @@
 	"}"
 	"}";
 	
-	NSString *insertRule1 = [NSString stringWithFormat:@"addCSSRule('html', 'padding: 0px; height: %fpx; -webkit-column-gap: 0px; -webkit-column-width: %fpx;')", _EpubWebView.frame.size.height, _EpubWebView.frame.size.width];
+//	NSString *insertRule1 = [NSString stringWithFormat:@"addCSSRule('html', 'padding: 0px; height: %fpx; -webkit-column-gap: 0px; -webkit-column-width: %fpx;')", _EpubWebView.frame.size.height, _EpubWebView.frame.size.width];
+    NSString *insertRule1 = [NSString stringWithFormat:@"addCSSRule('html', 'font-size:10px;padding: 0px; height: %fpx; -webkit-column-gap: 0px; -webkit-column-width: %fpx;')", _EpubWebView.frame.size.height - 20, _EpubWebView.frame.size.width - 20];
 	NSString *insertRule2 = [NSString stringWithFormat:@"addCSSRule('p', 'text-align: justify;')"];
     NSString *insertRule3 = @"addCSSRule('img', 'max-width:100%; max-height:100%;border:none;')";
 	NSString *setTextSizeRule = [NSString stringWithFormat:@"addCSSRule('body', '-webkit-text-size-adjust: %d%%;')", _currentTextSize];
@@ -120,6 +121,11 @@
     [_delegate webViewFinishLoadWithpagesInCurrentSpineCount:_pagesInCurrentSpineCount withcurrentPageInSpineIndex:_currentPageInSpineIndex];
 	[self gotoPageInCurrentSpine:_currentPageInSpineIndex];
     
+}
+
+-(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    return YES;
 }
 
 - (void) loadSpine:(int)spineIndex atPageIndex:(int)pageIndex

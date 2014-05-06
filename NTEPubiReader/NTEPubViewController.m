@@ -84,6 +84,7 @@
     if (currentSpineIndex==0) {
         return nil;
     }
+    _NTEpubWebView=viewController;
 //    NSUInteger index = [self indexOfViewController:(MoreViewController *)viewController];
 //    if ((index == 0) || (index == NSNotFound))
 //    {
@@ -103,7 +104,7 @@
     {
         return nil;
     }
-    
+    _NTEpubWebView=viewController;
     
 //    NSUInteger index = [self indexOfViewController:(MoreViewController *)viewController];
 //    if (index == NSNotFound) {
@@ -120,15 +121,16 @@
 -(NTWebViewController *)BeforeView
 {
     NTWebViewController *dataViewController;
-    if(currentPageInSpineIndex-1>=0)
-    {
-        dataViewController =[[NTWebViewController alloc] init];
+//    if(currentPageInSpineIndex-1>=0)
+//    {
+////        dataViewController =[[NTWebViewController alloc] init];
 //        dataViewController =_NTEpubWebView;
-        dataViewController.NTloadedEpub=loadedEpub;
-        dataViewController.currentSpineIndex=currentSpineIndex;
-        dataViewController.currentPageInSpineIndex=--currentPageInSpineIndex;
+//        dataViewController.NTloadedEpub=loadedEpub;
+//        dataViewController.currentSpineIndex=currentSpineIndex;
 //        [dataViewController gotoPageInCurrentSpine:--currentPageInSpineIndex];
-    } else
+//        dataViewController.currentPageInSpineIndex=--currentPageInSpineIndex;
+//        
+//    } else
     {
         dataViewController =[[NTWebViewController alloc] init];
         if(currentSpineIndex!=0)
@@ -149,17 +151,17 @@
 -(NTWebViewController *)AfterView
 {
     NTWebViewController *dataViewController;
-    if(currentPageInSpineIndex+1<pagesInCurrentSpineCount)
-    {
-        dataViewController =[[NTWebViewController alloc] init];
+//    if(currentPageInSpineIndex+1<pagesInCurrentSpineCount)
+//    {
+////        dataViewController =[[NTWebViewController alloc] init];
 //        dataViewController =_NTEpubWebView;
-        dataViewController.NTloadedEpub=loadedEpub;
-        dataViewController.currentSpineIndex=currentSpineIndex;
-        dataViewController.currentPageInSpineIndex=++currentPageInSpineIndex;
+//        dataViewController.NTloadedEpub=loadedEpub;
+//        dataViewController.currentSpineIndex=currentSpineIndex;
 //        [dataViewController gotoPageInCurrentSpine:++currentPageInSpineIndex];
-
-    }
-    else
+//        dataViewController.currentPageInSpineIndex=++currentPageInSpineIndex;
+//
+//    }
+//    else
     {
         dataViewController =[[NTWebViewController alloc] init];
         if(currentSpineIndex+1<[loadedEpub.spineArray count])
