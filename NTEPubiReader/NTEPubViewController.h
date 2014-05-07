@@ -10,7 +10,7 @@
 #import "NTEPub.h"
 #import "NTChapter.h"
 #import "NTWebViewController.h"
-@interface NTEPubViewController : UIViewController<UIWebViewDelegate,UIScrollViewDelegate,NTChapterDelegate,UIPageViewControllerDataSource,NTWebViewControllerDelegate>
+@interface NTEPubViewController : UIViewController<UIWebViewDelegate,UIScrollViewDelegate,UIPageViewControllerDataSource,NTWebViewControllerDelegate,UIGestureRecognizerDelegate,UIPageViewControllerDelegate>
 {
     NTEPub* loadedEpub;
 	int currentSpineIndex;

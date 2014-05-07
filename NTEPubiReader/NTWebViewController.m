@@ -19,7 +19,6 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
     }
     return self;
 }
@@ -29,19 +28,11 @@
     [super viewDidLoad];
     _currentTextSize = 100;
     [self ResetView];
-    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
--(void)loadView
-{
-    [super loadView];
-    
 }
 
 -(void)ResetView
@@ -57,25 +48,14 @@
     _EpubWebView.scrollView.delegate = self;
     _EpubWebView.scrollView.pagingEnabled = YES;
     _EpubWebView.backgroundColor = [UIColor clearColor];
-//    _EpubWebView.scrollView.scrollEnabled=NO;
     _EpubWebView.scrollView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_EpubWebView];
-    [self  loadSpine:_currentSpineIndex atPageIndex:_currentPageInSpineIndex];
-    
-//    UISwipeGestureRecognizer* rightSwipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(gotoNextPage)];
-//	[rightSwipeRecognizer setDirection:UISwipeGestureRecognizerDirectionLeft];
-//	
-//	UISwipeGestureRecognizer* leftSwipeRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(gotoPrevPage)];
-//	[leftSwipeRecognizer setDirection:UISwipeGestureRecognizerDirectionRight];
-//	
-//	[_EpubWebView addGestureRecognizer:rightSwipeRecognizer];
-//	[_EpubWebView addGestureRecognizer:leftSwipeRecognizer];
-    //    [self loadSpine:currentSpineIndex atPageIndex:currentPageInSpineIndex];
-	
+    [self loadSpine:_currentSpineIndex atPageIndex:0];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)theWebView
 {
+    _isNeedJump=YES;
 	NSString *varMySheet = @"var mySheet = document.styleSheets[0];";
 	
 	NSString *addCSSRule =  @"function addCSSRule(selector, newRule) {"
@@ -109,22 +89,59 @@
 	
 	[_EpubWebView stringByEvaluatingJavaScriptFromString:setHighlightColorRule];
 	
-    //	if(currentSearchResult!=nil){
-    //        //	NSLog(@"Highlighting %@", currentSearchResult.originatingQuery);
-    //        [_EpubWebView highlightAllOccurencesOfString:currentSearchResult.originatingQuery];
-    //	}
-	
-	
 	int totalWidth = [[_EpubWebView stringByEvaluatingJavaScriptFromString:@"document.documentElement.scrollWidth"] intValue];
 	_pagesInCurrentSpineCount = (int)((float)totalWidth/_EpubWebView.bounds.size.width);
-	
-    [_delegate webViewFinishLoadWithpagesInCurrentSpineCount:_pagesInCurrentSpineCount withcurrentPageInSpineIndex:_currentPageInSpineIndex];
-	[self gotoPageInCurrentSpine:_currentPageInSpineIndex];
-    
+
+    [_delegate webViewFinishLoadWithpagesInCurrentSpine:_currentSpineIndex];
+    if (_URLAnchor)
+    {
+        _isNeedJump=NO;
+        [self gotoAnchorInCurrentSpine:_URLAnchor];
+    }
+    if (_isNeedLastPage)
+    {
+        [self gotoLastPageInCurrentSpine];
+    }
 }
 
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
+    if (!_isNeedJump)
+    {
+        return YES;
+    }
+    NSString *urlString = [[request URL] absoluteString];
+    NSArray *urlComps = [urlString componentsSeparatedByString:@"://"];
+    if([urlComps count]>1 && [[urlComps objectAtIndex:0] isEqualToString:@"file"])
+    {
+        NSArray *urlpath=[[urlComps objectAtIndex:1]componentsSeparatedByString:@"#"];
+        if (urlpath.count>1)
+        {
+            NSString *localurlString = [[webView.request URL] absoluteString];
+            NSArray *localurlComps = [localurlString componentsSeparatedByString:@"://"];
+            if (localurlComps.count>1&&[[urlComps objectAtIndex:0]isEqualToString:[localurlComps objectAtIndex:1]])
+            {
+                [self gotoAnchorInCurrentSpine:[urlComps objectAtIndex:1]];
+                return NO;
+            }
+            else
+            {
+                NSArray *NewurlComps = [urlString componentsSeparatedByString:@"#"];
+                
+                for (int i=0; i<_NTloadedEpub.spineArray.count; i++)
+                {
+                    NSURL *iurl= [NSURL fileURLWithPath:[[_NTloadedEpub.spineArray objectAtIndex:i] spinePath]];
+                    NSString *str=iurl.absoluteString;
+                    
+                    if ([str isEqualToString:[NewurlComps objectAtIndex:0]])
+                    {
+                        [_delegate webviewJumpWithpath:[NewurlComps objectAtIndex:1] withIndex:i];
+                        return NO;
+                    }
+                }
+            }
+        }
+    }
     return YES;
 }
 
@@ -135,32 +152,36 @@
 
 - (void) loadSpine:(int)spineIndex atPageIndex:(int)pageIndex highlightSearchResult:(SearchResult*)theResult
 {
-    if (_EpubWebView==nil)
-    {
-//        [self ResetView];
-    }
-	_EpubWebView.hidden = YES;
     NSString *str=[[_NTloadedEpub.spineArray objectAtIndex:spineIndex] spinePath];
-	[_EpubWebView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:str]]];
-	_currentPageInSpineIndex = pageIndex;
+    NSURL *url;
+    if (_URLAnchor)
+    {
+        NSURL *baseURL = [NSURL fileURLWithPath:str];
+        url= [NSURL URLWithString:[NSString stringWithFormat:@"#%@", _URLAnchor] relativeToURL:baseURL];
+        _isNeedJump=NO;
+    }
+    else
+    {
+        url=[NSURL fileURLWithPath:str];
+        _isNeedJump=YES;
+    }
+	[_EpubWebView loadRequest:[NSURLRequest requestWithURL:url]];
 	_currentSpineIndex = spineIndex;
-    
-    //    UIWebView* webView = [[UIWebView alloc] initWithFrame:_EpubWebView.bounds];
-    //    [webView setDelegate:self];
-    //    NSURLRequest* urlRequest = [NSURLRequest requestWithURL:[NSURL fileURLWithPath:@"/Users/biejia/Library/Application Support/iPhone Simulator/7.1/Applications/C66FD05A-B02D-4955-B5A8-F3B0FDE31D91/Documents/UnzippedEpub/呼吸机临床应用快速解读.epub/OPS/000-toc.html"]];
-    //    [webView loadRequest:urlRequest];
-    //
-    //    [self.view addSubview:webView];
 }
 
-- (void) gotoPageInCurrentSpine:(int)pageIndex
+- (void) gotoAnchorInCurrentSpine:(NSString *)anchor
 {
-	if(pageIndex>=_pagesInCurrentSpineCount)
-    {
-		pageIndex = _pagesInCurrentSpineCount - 1;
-		_currentPageInSpineIndex = _pagesInCurrentSpineCount - 1;
-	}
-	
+    NSString *str=[NSString stringWithFormat:@"window.location.href = '#%@'",anchor];
+    [_EpubWebView stringByEvaluatingJavaScriptFromString:str];
+    _isNeedJump=YES;
+//
+//    [_EpubWebView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"request(\"%@\")",anchor]];
+}
+
+- (void) gotoLastPageInCurrentSpine
+{
+    int  pageIndex = _pagesInCurrentSpineCount - 1;
+    
 	float pageOffset = pageIndex*_EpubWebView.bounds.size.width;
     
 	NSString* goToOffsetFunc = [NSString stringWithFormat:@" function pageScroll(xOffset){ window.scroll(xOffset,0); } "];
@@ -168,7 +189,6 @@
 	
 	[_EpubWebView stringByEvaluatingJavaScriptFromString:goToOffsetFunc];
 	[_EpubWebView stringByEvaluatingJavaScriptFromString:goTo];
-	_EpubWebView.hidden = NO;
 }
 
 

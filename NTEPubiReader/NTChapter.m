@@ -19,9 +19,9 @@
         title = theTitle;
         chapterIndex = theIndex;
         
-		NSString* html = [[NSString alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL fileURLWithPath:theSpinePath]] encoding:NSUTF8StringEncoding];
-		text = [html stringByConvertingHTMLToPlainText];
-		html=nil;
+//		NSString* html = [[NSString alloc] initWithData:[NSData dataWithContentsOfURL:[NSURL fileURLWithPath:theSpinePath]] encoding:NSUTF8StringEncoding];
+//		text = [html stringByConvertingHTMLToPlainText];
+//		html=nil;
     }
     return self;
 }

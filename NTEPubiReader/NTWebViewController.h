@@ -12,8 +12,8 @@
 @protocol NTWebViewControllerDelegate <NSObject>
 
 @required
--(void)webViewFinishLoadWithpagesInCurrentSpineCount:(int)Count withcurrentPageInSpineIndex:(int)Index;
-
+-(void)webViewFinishLoadWithpagesInCurrentSpine:(int)Index;
+-(void)webviewJumpWithpath:(NSString *)path withIndex:(int)index;
 @end
 
 
@@ -21,13 +21,15 @@
 @property (nonatomic, assign) id delegate;
 @property (nonatomic, strong) UIWebView *EpubWebView;
 @property (nonatomic) int currentSpineIndex;
-@property (nonatomic) int currentPageInSpineIndex;
 @property (nonatomic) int pagesInCurrentSpineCount;
 @property (nonatomic) int currentTextSize;
 @property (nonatomic) int totalPagesCount;
 @property (nonatomic) BOOL epubLoaded;
 @property (nonatomic) BOOL paginating;
 @property (nonatomic) BOOL searching;
+@property (nonatomic,strong) NSString *URLAnchor;
+@property (nonatomic) BOOL isNeedJump;
+@property (nonatomic) BOOL isNeedLastPage;
 
 @property (nonatomic, strong) NTEPub* NTloadedEpub;
 - (void) gotoPageInCurrentSpine:(int)pageIndex;
