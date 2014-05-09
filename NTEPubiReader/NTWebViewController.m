@@ -26,6 +26,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.backgroundColor=[UIColor lightGrayColor];
     _currentTextSize = 100;
     [self ResetView];
 }
@@ -39,7 +40,7 @@
 {
     _EpubWebView = [[UIWebView alloc] initWithFrame:self.view.frame];
     _EpubWebView.delegate = self;
-    _EpubWebView.backgroundColor=[UIColor lightGrayColor];
+//    _EpubWebView.backgroundColor=[UIColor lightGrayColor];
     _EpubWebView.scrollView.alwaysBounceHorizontal = YES;
     _EpubWebView.scrollView.alwaysBounceVertical = NO;
     _EpubWebView.scrollView.bounces = YES;
@@ -68,7 +69,7 @@
 	"}";
 	
 //	NSString *insertRule1 = [NSString stringWithFormat:@"addCSSRule('html', 'padding: 0px; height: %fpx; -webkit-column-gap: 0px; -webkit-column-width: %fpx;')", _EpubWebView.frame.size.height, _EpubWebView.frame.size.width];
-    NSString *insertRule1 = [NSString stringWithFormat:@"addCSSRule('html', 'font-size:10px;padding: 0px; height: %fpx; -webkit-column-gap: 0px; -webkit-column-width: %fpx;')", _EpubWebView.frame.size.height - 20, _EpubWebView.frame.size.width - 20];
+    NSString *insertRule1 = [NSString stringWithFormat:@"addCSSRule('html', 'font-size:10px;padding: 0px; height: %fpx; -webkit-column-gap: 0px; -webkit-column-width: %fpx;')", _EpubWebView.frame.size.height - 20, _EpubWebView.frame.size.width];
 	NSString *insertRule2 = [NSString stringWithFormat:@"addCSSRule('p', 'text-align: justify;')"];
     NSString *insertRule3 = @"addCSSRule('img', 'max-width:100%; max-height:100%;border:none;')";
 	NSString *setTextSizeRule = [NSString stringWithFormat:@"addCSSRule('body', '-webkit-text-size-adjust: %d%%;')", _currentTextSize];

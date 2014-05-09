@@ -29,9 +29,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor=[UIColor whiteColor];
+    self.view.backgroundColor=[UIColor yellowColor];
     currentTextSize = 100;
     [self loadEpub:nil];
+    [self ResetNavView];
     [self ResetPageView];
 }
 
@@ -41,44 +42,31 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)ResetNavView
+{
+    UIBarButtonItem *leftItem1 = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleBordered target:self action:@selector(back)];
+    UIBarButtonItem *leftItem2 = [[UIBarButtonItem alloc] initWithTitle:@"目录" style:UIBarButtonItemStyleBordered target:self action:@selector(showChapterList)];
+    self.navigationItem.leftBarButtonItems = @[leftItem1,leftItem2];
+
+}
+
 -(void)ResetPageView
 {
     NSDictionary *options =[NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:UIPageViewControllerSpineLocationMin] forKey: UIPageViewControllerOptionSpineLocationKey];
     self.pageController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options: options];
     _pageController.dataSource = self;
     _pageController.delegate=self;
-    [[_pageController view] setFrame:[[self view] bounds]];
-    
+    [[_pageController view] setFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height-0)];
     NTWebViewController *initialViewController =[[NTWebViewController alloc] init];// 得到第一页
     initialViewController.delegate=self;
     initialViewController.NTloadedEpub=loadedEpub;
+    initialViewController.view.frame=_pageController.view.frame;
     initialViewController.currentSpineIndex=currentSpineIndex;
-//    [initialViewController loadSpine:currentSpineIndex atPageIndex:currentPageInSpineIndex];
     NSArray *viewControllers =[NSArray arrayWithObject:initialViewController];
     [_pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward  animated:NO  completion:nil];
     [self addChildViewController:_pageController];
     [[self view] addSubview:[_pageController view]];
     
-    for (UIGestureRecognizer *gt in self.view.gestureRecognizers)
-    {
-        gt.delegate=self;
-    }
-}
-
--(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
-{
-    
-    if ([gestureRecognizer isKindOfClass:[UITapGestureRecognizer class]])
-    {
-        CGPoint touchpoint=[touch locationInView:self.view];
-        if (touchpoint.y>40)
-        {
-            return NO;
-        }
-    }
-    
-    
-    return YES;
 }
 
 #pragma mark- UIPageViewControllerDataSource
@@ -98,7 +86,7 @@
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(NTWebViewController *)viewController
 {
     currentSpineIndex=viewController.currentSpineIndex;
-    if (currentSpineIndex==loadedEpub.spineArray.count)
+    if (currentSpineIndex+1==loadedEpub.spineArray.count)
     {
         return nil;
     }
@@ -165,6 +153,25 @@
     [_pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward  animated:NO  completion:nil];
 }
 
+
+#pragma mark - NavAction -
+
+-(void)back
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void)showChapterList
+{
+    if (!_ChapterListView)
+    {
+        _ChapterListView =[[NTEPubChapterListView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+        [self.view addSubview:_ChapterListView];
+        _ChapterListView.backgroundColor=[UIColor yellowColor];
+        return;
+    }
+    _ChapterListView.hidden=!_ChapterListView.hidden;
+}
 
 -(void)dealloc
 {

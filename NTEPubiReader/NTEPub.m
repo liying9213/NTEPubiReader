@@ -119,10 +119,35 @@
 //        [tmpChapter loadChapterWithWindowSize:webViewSize fontPercentSize:fontSize];
 		[tmpArray addObject:tmpChapter];
 	}
-	
 	_spineArray = [NSMutableArray arrayWithArray:tmpArray];
-	
+    
+    
+//    NSString *Thepath;
+//    NSArray* itemsArray1 = [opfFile nodesForXPath:@"//opf:spine" namespaceMappings:[NSDictionary dictionaryWithObject:@"http://www.idpf.org/2007/opf" forKey:@"opf"] error:nil];
+//    for (CXMLElement* element in itemsArray1)
+//    {
+//        NSString* chapHref2 = [itemDictionary valueForKey:[[element attributeForName:@"toc"] stringValue]];
+//        Thepath=[NSString stringWithFormat:@"%@%@",_bookBasePath,chapHref2];
+//    }
+//    CXMLDocument* ncxToc1 = [[CXMLDocument alloc] initWithContentsOfURL:[NSURL fileURLWithPath:Thepath] options:0 error:nil];
+//    
+//    NSString* idpath = [NSString stringWithFormat:@"//ncx:navMap"];
+//    NSArray* idPoints = [ncxToc1 nodesForXPath:idpath namespaceMappings:[NSDictionary dictionaryWithObject:@"http://www.daisy.org/z3986/2005/ncx/" forKey:@"ncx"] error:nil];
+//    if (idPoints && idPoints.count != 0)
+//    {
+//        CXMLElement* titleElement = [idPoints objectAtIndex:0];
+//        _theNavPoints = [titleElement elementsForName:@"navPoint"];
+//        NSMutableArray *ary=[self GetChapterTitle:_theNavPoints];
+//        [self arywithOldArray:ary];
+//    }
+
 }
+
+- (void) parseOPFncx:(NSString*)opfPath
+{
+    
+}
+
 //-(NSMutableArray *)GetChapterTitle:(NSArray *)theNavPoints
 //{
 //    NSMutableArray *chapterArray=[[NSMutableArray alloc] init];

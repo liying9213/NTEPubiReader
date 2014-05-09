@@ -10,6 +10,7 @@
 #import "NTEPub.h"
 #import "NTChapter.h"
 #import "NTWebViewController.h"
+#import "NTEPubChapterListView.h"
 @interface NTEPubViewController : UIViewController<UIWebViewDelegate,UIScrollViewDelegate,UIPageViewControllerDataSource,NTWebViewControllerDelegate,UIGestureRecognizerDelegate,UIPageViewControllerDelegate>
 {
     NTEPub* loadedEpub;
@@ -25,6 +26,7 @@
 }
 @property (nonatomic, strong)NTWebViewController *NTEpubWebView;
 @property (strong, nonatomic) UIPageViewController *pageController;
+@property (nonatomic, strong)NTEPubChapterListView *ChapterListView;
 
 @property (nonatomic, strong) UIWebView *EpubWebView;
 - (void) loadEpub:(NSURL*) epubURL;

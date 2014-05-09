@@ -54,7 +54,6 @@
 -(void)ResetView
 {
     self.view.backgroundColor=[UIColor whiteColor];
-    
     UIButton *button=[UIButton buttonWithType:UIButtonTypeCustom];
     button.backgroundColor=[UIColor lightGrayColor];
     button.frame=CGRectMake(120, 150, 50, 30);
