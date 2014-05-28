@@ -28,8 +28,14 @@
 
 @property (nonatomic, assign) id delegate;
 @property (nonatomic, readonly) int pageCount, chapterIndex, fontPercentSize;
-@property (nonatomic, readonly) NSString *spinePath, *title, *text;
+//@property (nonatomic, readonly) NSString *spinePath, *title, *text;
 @property (nonatomic, readonly) CGRect windowSize;
+@property (nonatomic, strong) NSString  *title;
+@property (nonatomic, strong) NSString  *spinePath;
+@property (nonatomic, strong) NSMutableArray  *chirederArray;
+@property (nonatomic) NSInteger  layer;
+@property (nonatomic, assign) NSInteger spineIndex;
+
 
 - (id) initWithPath:(NSString*)theSpinePath title:(NSString*)theTitle chapterIndex:(int) theIndex;
 

@@ -56,6 +56,7 @@
 		1471EE7D1914952000C155FE /* 呼吸机临床应用快速解读.epub in Resources */ = {isa = PBXBuildFile; fileRef = 1471EE7C1914952000C155FE /* 呼吸机临床应用快速解读.epub */; };
 		1471EE861914BA3800C155FE /* SearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 1471EE851914BA3800C155FE /* SearchResult.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1471EE881914E16300C155FE /* 机械制造基础.epub in Resources */ = {isa = PBXBuildFile; fileRef = 1471EE871914E16300C155FE /* 机械制造基础.epub */; };
+		147A7D661924631700B4110F /* NTPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 147A7D651924631700B4110F /* NTPageViewController.m */; };
 		14C3F5E31916186500303ED9 /* NTWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C3F5E21916186500303ED9 /* NTWebViewController.m */; };
 		14F2D379191A316A00D10028 /* 动脉血气分析快速解读文前.epub in Resources */ = {isa = PBXBuildFile; fileRef = 14F2D377191A316A00D10028 /* 动脉血气分析快速解读文前.epub */; };
 		14F2D37A191A316A00D10028 /* 消化科用药(1).epub in Resources */ = {isa = PBXBuildFile; fileRef = 14F2D378191A316A00D10028 /* 消化科用药(1).epub */; };
@@ -156,6 +157,8 @@
 		1471EE841914BA3800C155FE /* SearchResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResult.h; sourceTree = "<group>"; };
 		1471EE851914BA3800C155FE /* SearchResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResult.m; sourceTree = "<group>"; };
 		1471EE871914E16300C155FE /* 机械制造基础.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "机械制造基础.epub"; sourceTree = "<group>"; };
+		147A7D641924631700B4110F /* NTPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTPageViewController.h; sourceTree = "<group>"; };
+		147A7D651924631700B4110F /* NTPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTPageViewController.m; sourceTree = "<group>"; };
 		14C3F5E11916186500303ED9 /* NTWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NTWebViewController.h; sourceTree = "<group>"; };
 		14C3F5E21916186500303ED9 /* NTWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NTWebViewController.m; sourceTree = "<group>"; };
 		14F2D377191A316A00D10028 /* 动脉血气分析快速解读文前.epub */ = {isa = PBXFileReference; lastKnownFileType = file; path = "动脉血气分析快速解读文前.epub"; sourceTree = "<group>"; };
@@ -275,6 +278,8 @@
 				145429071913A4C000082BB9 /* Images.xcassets */,
 				145428FC1913A4C000082BB9 /* Supporting Files */,
 				1449B0B21913ADFD00131ADB /* NTEPubDefine.h */,
+				147A7D641924631700B4110F /* NTPageViewController.h */,
+				147A7D651924631700B4110F /* NTPageViewController.m */,
 			);
 			path = NTEPubiReader;
 			sourceTree = "<group>";
@@ -505,6 +510,7 @@
 				1449B09E1913A80000131ADB /* NTEPub.m in Sources */,
 				14C3F5E31916186500303ED9 /* NTWebViewController.m in Sources */,
 				145429521913A51900082BB9 /* CXMLNode_CreationExtensions.m in Sources */,
+				147A7D661924631700B4110F /* NTPageViewController.m in Sources */,
 				1454295C1913A51900082BB9 /* CXMLNode_XPathExtensions.m in Sources */,
 				145429641913A51900082BB9 /* ZipArchive.m in Sources */,
 				1449B0A41913AA5B00131ADB /* NTEPubSearchViewcontroller.m in Sources */,

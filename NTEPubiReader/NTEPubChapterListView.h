@@ -7,7 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+@class NTEPubChapterListView;
+@protocol NTEPubChapterListViewDelegate <NSObject>
 
-@interface NTEPubChapterListView : UIView
+@required
+-(void)webviewJumpChapterWithpath:(NSString *)path;
+@end
+
+
+@interface NTEPubChapterListView : UIView<UITableViewDelegate,UITableViewDataSource>
+
+@property (nonatomic, retain) NSMutableArray *chapterArray;
+@property (nonatomic, retain) UITableView *tableView;
+@property (nonatomic, assign) id delegate;
 
 @end

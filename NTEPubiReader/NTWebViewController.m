@@ -51,10 +51,16 @@
     _EpubWebView.backgroundColor = [UIColor clearColor];
     _EpubWebView.scrollView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_EpubWebView];
-    [self loadSpine:_currentSpineIndex atPageIndex:0];
+    [self performSelectorOnMainThread:@selector(loadSpine:) withObject:[NSNumber numberWithInt:_currentSpineIndex] waitUntilDone:YES];
+//    [self loadSpine:_currentSpineIndex atPageIndex:0];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)theWebView
+{
+    [self performSelectorOnMainThread:@selector(changeWebView) withObject:nil waitUntilDone:YES];
+}
+
+-(void)changeWebView
 {
     _isNeedJump=YES;
 	NSString *varMySheet = @"var mySheet = document.styleSheets[0];";
@@ -68,8 +74,8 @@
 	"}"
 	"}";
 	
-//	NSString *insertRule1 = [NSString stringWithFormat:@"addCSSRule('html', 'padding: 0px; height: %fpx; -webkit-column-gap: 0px; -webkit-column-width: %fpx;')", _EpubWebView.frame.size.height, _EpubWebView.frame.size.width];
-    NSString *insertRule1 = [NSString stringWithFormat:@"addCSSRule('html', 'font-size:10px;padding: 0px; height: %fpx; -webkit-column-gap: 0px; -webkit-column-width: %fpx;')", _EpubWebView.frame.size.height - 20, _EpubWebView.frame.size.width];
+    //	NSString *insertRule1 = [NSString stringWithFormat:@"addCSSRule('html', 'padding: 0px; height: %fpx; -webkit-column-gap: 0px; -webkit-column-width: %fpx;')", _EpubWebView.frame.size.height, _EpubWebView.frame.size.width];
+    NSString *insertRule1 = [NSString stringWithFormat:@"addCSSRule('html', 'font-size:10px;padding: 0px; height: %fpx; -webkit-column-gap: 0px; -webkit-column-width: %fpx;')", _EpubWebView.frame.size.height-64, _EpubWebView.frame.size.width];
 	NSString *insertRule2 = [NSString stringWithFormat:@"addCSSRule('p', 'text-align: justify;')"];
     NSString *insertRule3 = @"addCSSRule('img', 'max-width:100%; max-height:100%;border:none;')";
 	NSString *setTextSizeRule = [NSString stringWithFormat:@"addCSSRule('body', '-webkit-text-size-adjust: %d%%;')", _currentTextSize];
@@ -92,7 +98,7 @@
 	
 	int totalWidth = [[_EpubWebView stringByEvaluatingJavaScriptFromString:@"document.documentElement.scrollWidth"] intValue];
 	_pagesInCurrentSpineCount = (int)((float)totalWidth/_EpubWebView.bounds.size.width);
-
+    
     [_delegate webViewFinishLoadWithpagesInCurrentSpine:_currentSpineIndex];
     if (_URLAnchor)
     {
@@ -144,6 +150,11 @@
         }
     }
     return YES;
+}
+
+- (void) loadSpine:(NSNumber *)spineIndex
+{
+    [self loadSpine:[spineIndex intValue] atPageIndex:0 highlightSearchResult:nil];
 }
 
 - (void) loadSpine:(int)spineIndex atPageIndex:(int)pageIndex

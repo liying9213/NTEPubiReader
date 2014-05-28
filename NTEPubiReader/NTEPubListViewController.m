@@ -65,13 +65,12 @@
 {
     NSFileManager *file=[[NSFileManager alloc]init];
 //    [file copyItemAtPath:[[NSBundle mainBundle] pathForResource:@"呼吸机临床应用快速解读" ofType:@"epub"] toPath:[NSString stringWithFormat:@"%@/呼吸机临床应用快速解读.epub",NTEPubDocuments] error:nil];
-    [file copyItemAtPath:[[NSBundle mainBundle] pathForResource:@"消化科用药(1)" ofType:@"epub"] toPath:[NSString stringWithFormat:@"%@/消化科用药(1).epub",NTEPubDocuments] error:nil];
+    [file copyItemAtPath:[[NSBundle mainBundle] pathForResource:@"机械制造基础" ofType:@"epub"] toPath:[NSString stringWithFormat:@"%@/机械制造基础.epub",NTEPubDocuments] error:nil];
     NSLog(@"===%@",NTEPubDocuments);
     NTEPubViewController *viewController=[[NTEPubViewController alloc] init];
 //    [viewController loadEpub:nil];
     [self.navigationController pushViewController:viewController animated:YES];
 }
-
 
 /*
 #pragma mark - Navigation

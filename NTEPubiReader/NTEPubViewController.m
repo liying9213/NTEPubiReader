@@ -79,6 +79,10 @@
     {
         return nil;
     }
+    NSLog(@"====viewControllerBeforeViewController====1=====");
+//    [self webviewLoadFinish];
+    isFinishLoad=NO;
+    NSLog(@"====viewControllerBeforeViewController====2=====");
     return [self BeforeView];
 }
 
@@ -90,7 +94,13 @@
     {
         return nil;
     }
+    NSLog(@"====viewControllerAfterViewController====1=====");
+//    [self webviewLoadFinish];
+    isFinishLoad=NO;
+    NSLog(@"====viewControllerAfterViewController====2=====");
+//    [NSThread detachNewThreadSelector:@selector(AfterView) toTarget:self withObject:nil];
     return [self AfterView];
+//    return [NSThread pe]
 }
 
 -(NTWebViewController *)BeforeView
@@ -118,6 +128,20 @@
     return dataViewController;
 }
 
+-(void)webviewLoadFinish
+{
+    if (isFinishLoad)
+    {
+        return;
+    }
+    else
+    {
+        NSLog(@"=======================");
+        [self webviewLoadFinish];
+    }
+}
+
+
 -(void)loadEpub
 {
     [self loadEpub:nil];
@@ -131,12 +155,13 @@
     totalPagesCount = 0;
 	searching = NO;
     epubLoaded = NO;
-    loadedEpub = [[NTEPub alloc] initWithEPubPath:@"消化科用药(1).epub" WithSize:_EpubWebView.bounds fontPercentSize:currentTextSize];
+    loadedEpub = [[NTEPub alloc] initWithEPubPath:@"机械制造基础.epub" WithSize:_EpubWebView.bounds fontPercentSize:currentTextSize];
     epubLoaded = YES;
 }
 
 -(void)webViewFinishLoadWithpagesInCurrentSpine:(int)Index
 {
+    isFinishLoad=YES;
     currentSpineIndex=Index;
 }
 
@@ -166,12 +191,34 @@
     if (!_ChapterListView)
     {
         _ChapterListView =[[NTEPubChapterListView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+        _ChapterListView.chapterArray=loadedEpub.chapterArray;
+        _ChapterListView.delegate=self;
         [self.view addSubview:_ChapterListView];
-        _ChapterListView.backgroundColor=[UIColor yellowColor];
+//        _ChapterListView.backgroundColor=[UIColor yellowColor];
         return;
     }
     _ChapterListView.hidden=!_ChapterListView.hidden;
 }
+
+-(void)webviewJumpChapterWithpath:(NSString *)path
+{
+    NSArray *urlpath=[path componentsSeparatedByString:@"#"];
+    if (urlpath.count>1)
+    {
+        for (int i=0; i<loadedEpub.spineArray.count; i++)
+        {
+            if ([[urlpath objectAtIndex:0] isEqualToString:[[loadedEpub.spineArray objectAtIndex:i] spinePath]])
+            {
+                [self webviewJumpWithpath:[urlpath objectAtIndex:1] withIndex:i];
+                _ChapterListView.hidden=YES;
+                return;
+            }
+        }
+    }
+    
+    
+}
+
 
 -(void)dealloc
 {

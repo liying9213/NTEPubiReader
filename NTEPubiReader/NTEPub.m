@@ -20,6 +20,7 @@
         epubFileName =EPubName;
 		epubFilePath =[NSString stringWithFormat:@"%@/%@",NTEPubDocuments,EPubName];
 		_spineArray = [[NSMutableArray alloc] init];
+         _chapterArray = [[NSMutableArray alloc] init];
 		[self parseEpub];
 	}
     return self;
@@ -32,6 +33,7 @@
         epubFileName =EPubName;
 		epubFilePath =[NSString stringWithFormat:@"%@/%@",NTEPubDocuments,EPubName];
 		_spineArray = [[NSMutableArray alloc] init];
+         _chapterArray = [[NSMutableArray alloc] init];
 		[self parseEpub];
 	}
     return self;
@@ -42,7 +44,7 @@
 {
     [self unzipAndSaveFileNamed:epubFilePath];
     [self parseOPF:[self parseManifestPath]];
-    
+    [self parseOPFncx:[self parseManifestPath]];
 }
 
 /* 解压Epub */
@@ -110,7 +112,8 @@
 	NSArray* itemRefsArray = [opfFile nodesForXPath:@"//opf:itemref" namespaceMappings:[NSDictionary dictionaryWithObject:@"http://www.idpf.org/2007/opf" forKey:@"opf"] error:nil];
 	NSMutableArray* tmpArray = [[NSMutableArray alloc] init];
     int count = 0;
-	for (CXMLElement* element in itemRefsArray) {
+	for (CXMLElement* element in itemRefsArray)
+    {
         NSString* chapHref = [itemDictionary valueForKey:[[element attributeForName:@"idref"] stringValue]];
         
         NTChapter* tmpChapter = [[NTChapter alloc] initWithPath:[NSString stringWithFormat:@"%@%@", ebookBasePath, chapHref]
@@ -120,81 +123,87 @@
 		[tmpArray addObject:tmpChapter];
 	}
 	_spineArray = [NSMutableArray arrayWithArray:tmpArray];
-    
-    
-//    NSString *Thepath;
-//    NSArray* itemsArray1 = [opfFile nodesForXPath:@"//opf:spine" namespaceMappings:[NSDictionary dictionaryWithObject:@"http://www.idpf.org/2007/opf" forKey:@"opf"] error:nil];
-//    for (CXMLElement* element in itemsArray1)
-//    {
-//        NSString* chapHref2 = [itemDictionary valueForKey:[[element attributeForName:@"toc"] stringValue]];
-//        Thepath=[NSString stringWithFormat:@"%@%@",_bookBasePath,chapHref2];
-//    }
-//    CXMLDocument* ncxToc1 = [[CXMLDocument alloc] initWithContentsOfURL:[NSURL fileURLWithPath:Thepath] options:0 error:nil];
-//    
-//    NSString* idpath = [NSString stringWithFormat:@"//ncx:navMap"];
-//    NSArray* idPoints = [ncxToc1 nodesForXPath:idpath namespaceMappings:[NSDictionary dictionaryWithObject:@"http://www.daisy.org/z3986/2005/ncx/" forKey:@"ncx"] error:nil];
-//    if (idPoints && idPoints.count != 0)
-//    {
-//        CXMLElement* titleElement = [idPoints objectAtIndex:0];
-//        _theNavPoints = [titleElement elementsForName:@"navPoint"];
-//        NSMutableArray *ary=[self GetChapterTitle:_theNavPoints];
-//        [self arywithOldArray:ary];
-//    }
-
+    _NTitemDictionary=itemDictionary;
 }
 
 - (void) parseOPFncx:(NSString*)opfPath
 {
+    int lastSlash = [opfPath rangeOfString:@"/" options:NSBackwardsSearch].location;
+	NSString * _bookBasePath = [opfPath substringToIndex:(lastSlash + 1)];
+    _NTbookBasePath=_bookBasePath;
     
+    CXMLDocument* opfFile = [[CXMLDocument alloc] initWithContentsOfURL:[NSURL fileURLWithPath:opfPath] options:0 error:nil];
+    NSString *Thepath;
+    NSArray* itemsArray1 = [opfFile nodesForXPath:@"//opf:spine" namespaceMappings:[NSDictionary dictionaryWithObject:@"http://www.idpf.org/2007/opf" forKey:@"opf"] error:nil];
+    for (CXMLElement* element in itemsArray1)
+    {
+        NSString* chapHref2 = [_NTitemDictionary valueForKey:[[element attributeForName:@"toc"] stringValue]];
+        Thepath=[NSString stringWithFormat:@"%@%@",_bookBasePath,chapHref2];
+    }
+    
+    
+//    NSString* chapHref2 = [_NTitemDictionary valueForKey:@"ncx"];
+//    NSString *Thepath=[NSString stringWithFormat:@"%@%@",_bookBasePath,chapHref2];
+    CXMLDocument* ncxToc1 = [[CXMLDocument alloc] initWithContentsOfURL:[NSURL fileURLWithPath:Thepath] options:0 error:nil];
+    
+    NSString* idpath = [NSString stringWithFormat:@"//ncx:navMap"];
+    NSArray* idPoints = [ncxToc1 nodesForXPath:idpath namespaceMappings:[NSDictionary dictionaryWithObject:@"http://www.daisy.org/z3986/2005/ncx/" forKey:@"ncx"] error:nil];
+    if (idPoints && idPoints.count != 0)
+    {
+        CXMLElement* titleElement = [idPoints objectAtIndex:0];
+        NSArray * _theNavPoints = [titleElement elementsForName:@"navPoint"];
+        NSMutableArray *ary=[self GetChapterTitle:_theNavPoints];
+        [self arywithOldArray:ary];
+    }
 }
 
-//-(NSMutableArray *)GetChapterTitle:(NSArray *)theNavPoints
-//{
-//    NSMutableArray *chapterArray=[[NSMutableArray alloc] init];
-//    
-//    for (int i = 0; i<theNavPoints.count;i++)
-//    {
-//        //        NSMutableDictionary *titleDictionary=[[NSMutableDictionary alloc] init];
-//        EPubChapter *chapter = [[EPubChapter alloc] init];
-//        CXMLElement* element = [theNavPoints objectAtIndex:i];//一个navPoint中包含的东西
-//        CXMLElement* contentElement = [[element elementsForName:@"content"]objectAtIndex:0];
-//        NSString *href = [[[contentElement attributes]objectAtIndex:0] stringValue];//章节地址src
-//        CXMLElement *navLabel = [[element elementsForName:@"navLabel"]objectAtIndex:0];//获得navLabel节点
-//        CXMLNode *textNode = [[navLabel elementsForName:@"text"]objectAtIndex:0];//获得text节点
-//        [chapter setTitle:[textNode stringValue]];
-//        NSString *hrefpath=[NSString stringWithUTF8String:href.UTF8String];
-//        NSString *path=[NSString stringWithFormat:@"%@%@",_bookBasePath,hrefpath];
-//        [chapter setSpinePath:path];
-//        
-//        //        [titleDictionary setValue:[textNode stringValue] forKey:@"title"];
-//        //        [titleDictionary setValue:href forKey:@"src"];
-//        NSArray *secondeNavPoints = [element elementsForName:@"navPoint"];
-//        if (secondeNavPoints && secondeNavPoints.count!=0)
-//        {
-//            _theChp++;
-//            //            [titleDictionary setObject:[self GetChapterTitle:secondeNavPoints] forKey:@"chirden"];
-//            [chapter setChirederArray:[self GetChapterTitle:secondeNavPoints]];
-//        }
-//        [chapter setLayer:_theChp];
-//        //        [titleDictionary setValue:[NSNumber numberWithInt:_theChp] forKey:@"layer"];
-//        [chapterArray addObject:chapter];
-//        chapter=nil;
-//    }
-//    _theChp--;
-//    return chapterArray;
-//}
-//
-//-(void )arywithOldArray:(NSMutableArray *)ary
-//{
-//    for (EPubChapter *dic in ary)
-//    {
-//        [_chapterArray addObject:dic];
-//        if (dic.chirederArray&&dic.chirederArray.count>0)
-//        {
-//            [self arywithOldArray:dic.chirederArray];
-//        }
-//    }
-//}
+-(NSMutableArray *)GetChapterTitle:(NSArray *)theNavPoints
+{
+    NSMutableArray *chapterArray=[[NSMutableArray alloc] init];
+    
+    for (int i = 0; i<theNavPoints.count;i++)
+    {
+        //        NSMutableDictionary *titleDictionary=[[NSMutableDictionary alloc] init];
+        NTChapter *chapter = [[NTChapter alloc] init];
+        CXMLElement* element = [theNavPoints objectAtIndex:i];//一个navPoint中包含的东西
+        CXMLElement* contentElement = [[element elementsForName:@"content"]objectAtIndex:0];
+        NSString *href = [[[contentElement attributes]objectAtIndex:0] stringValue];//章节地址src
+        CXMLElement *navLabel = [[element elementsForName:@"navLabel"]objectAtIndex:0];//获得navLabel节点
+        CXMLNode *textNode = [[navLabel elementsForName:@"text"]objectAtIndex:0];//获得text节点
+        [chapter setTitle:[textNode stringValue]];
+        NSString *hrefpath=[NSString stringWithUTF8String:href.UTF8String];
+        NSString *path=[NSString stringWithFormat:@"%@%@",_NTbookBasePath,hrefpath];
+        [chapter setSpinePath:path];
+        
+        //        [titleDictionary setValue:[textNode stringValue] forKey:@"title"];
+        //        [titleDictionary setValue:href forKey:@"src"];
+        NSArray *secondeNavPoints = [element elementsForName:@"navPoint"];
+        if (secondeNavPoints && secondeNavPoints.count!=0)
+        {
+            _theChp++;
+            //            [titleDictionary setObject:[self GetChapterTitle:secondeNavPoints] forKey:@"chirden"];
+            [chapter setChirederArray:[self GetChapterTitle:secondeNavPoints]];
+        }
+        [chapter setLayer:_theChp];
+        //        [titleDictionary setValue:[NSNumber numberWithInt:_theChp] forKey:@"layer"];
+        [chapterArray addObject:chapter];
+        chapter=nil;
+    }
+    _theChp--;
+    return chapterArray;
+}
+
+-(void )arywithOldArray:(NSMutableArray *)ary
+{
+    for (NTChapter *dic in ary)
+    {
+        [_chapterArray addObject:dic];
+        if (dic.chirederArray&&dic.chirederArray.count>0)
+        {
+            [self arywithOldArray:dic.chirederArray];
+        }
+    }
+}
 
 /* 获取解压后EPub路径 */
 - (NSString*) parseManifestPath
